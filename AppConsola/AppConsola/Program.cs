@@ -1,48 +1,80 @@
-﻿using AccesoDatos.Models;
+﻿using AccesoDatos.Data;
+using AccesoDatos.Models;
 using AccesoDatos.Repositories;
 
+using var context = new AplicationDbContext();
 // 1. Instanciamos el repositorio.
-IGenericRepository<Usuario> usuarioRepository = new GenericRepository<Usuario>();
+IGenericRepository<Autor> autorRepository = new GenericRepository<Autor>();
+IGenericRepository<Libro> libroRepository = new GenericRepository<Libro>();
+IGenericRepository<Categoria> categoriaRepository = new GenericRepository<Categoria>();
+
 
 bool continuar = true;
 
 while (continuar)
 {
     Console.WriteLine("=================================================");
-    Console.WriteLine("\tGestión de Usuarios");
+    Console.WriteLine("\tGestión de Autores y Libros");
     Console.WriteLine("=================================================");
     Console.WriteLine();
-    Console.WriteLine("1. Agregar usuario (Alta)");
-    Console.WriteLine("2. Modificar usuario (Modificación)");
-    Console.WriteLine("3. Eliminar usuario (Baja)");
-    Console.WriteLine("4. Ver todos los usuarios");
-    Console.WriteLine("5. Salir");
+    Console.WriteLine("1. Agregar autor (Alta)");
+    Console.WriteLine("2. Agregar libro (Alta)");
+    Console.WriteLine("3. Agregar categoria (Alta)");
+    Console.WriteLine("4. Ver libros");
+    Console.WriteLine("5. Ver autores");
+    Console.WriteLine("6. Ver categorias");
+    Console.WriteLine("7. Modificar autor (Modificacion)");
+    Console.WriteLine("8. Modificar libro (Modificacion)");
+    Console.WriteLine("9. Eliminar libro (Baja)");
+    Console.WriteLine("10. Salir");
+
     Console.WriteLine();
 
     Console.Write("Seleccione una opción: ");
+
     string opcion = Console.ReadLine();
     Console.Clear();
 
     switch (opcion)
     {
         case "1":
-            AltaUsuario();
+            AltaAutor();
             break;
 
         case "2":
-            ModificarUsuario();
+            AltaLibro();
             break;
 
         case "3":
-            BajaUsuario();
+            AltaCategoria();
             break;
 
         case "4":
-            VisualizarUsuarios();
+            VisualizarLibros();
             break;
 
         case "5":
-            Console.WriteLine("¡Cerrando el sistema de usuarios!");
+            VisualizarAutores();
+            break;
+
+        case "6":
+            VisualizarCategoria();
+            break;
+
+        case "7":
+            ModificarAutor();
+            break;
+
+        case "8":
+            ModificarLibro();
+            break;
+
+        case "9":
+            EliminarLibro();
+            break;
+
+        case "10":
+            Console.WriteLine("¡Cerrando el sistema!");
             continuar = false;
             break;
 
@@ -53,98 +85,216 @@ while (continuar)
     }
 }
 
-void AltaUsuario()
+void AltaAutor()
 {
-    Console.Write("Ingrese el nombre del usuario: ");
-    string name = Console.ReadLine();
+    Console.Write("Ingrese el nombre del autor: ");
+    string Nombre = Console.ReadLine();
 
-    Console.Write("Ingrese el apellido del usuario: ");
-    string lastName = Console.ReadLine();
-
-    var nuevoUsuario = new Usuario
+    var nuevoAutor = new Autor
     {
-        Name = name,
-        LastName = lastName
+        Nombre = Nombre
     };
 
-    usuarioRepository.Agregar(nuevoUsuario);
-    Console.WriteLine("Usuario agregado exitosamente.");
+
+    autorRepository.Agregar(nuevoAutor);
+    Console.WriteLine("Autor agregado exitosamente.");
     PresioneParaContinuar();
 }
 
-void ModificarUsuario()
+void AltaLibro()
 {
-    MostrarListaUsuarios(usuarioRepository);
-    Console.Write("Ingrese el ID del usuario a modificar: ");
+    Console.Write("Ingrese el titulo del libro: ");
+    string Titulo = Console.ReadLine();
 
-    if (int.TryParse(Console.ReadLine(), out int id))
+    Console.Write("Ingrese el anio del libro: ");
+    string Anio = Console.ReadLine();
+
+    Console.Write("Ingrese el id del autor: ");
+    int AutorId = int.Parse(Console.ReadLine());
+
+    Console.Write("Ingrese el id de la categoria: ");
+    int CategoriaId = int.Parse(Console.ReadLine());
+
+    var nuevoLibro = new Libro
     {
-        var usuarioACambiar = usuarioRepository.ObtenerPorId(id);
+        Titulo = Titulo,
+        Anio = int.Parse(Anio),
+        AutorId = AutorId,
+        Activo = true,
+        CategoriaId = CategoriaId,
+    };
 
-        if (usuarioACambiar != null)
-        {
-            Console.Write($"Ingrese el nuevo nombre para '{usuarioACambiar.Name}': ");
-            usuarioACambiar.Name = Console.ReadLine();
-
-            Console.Write($"Ingrese el nuevo apellido para '{usuarioACambiar.LastName}': ");
-            usuarioACambiar.LastName = Console.ReadLine();
-
-            usuarioRepository.Modificar(usuarioACambiar);
-            Console.WriteLine("Usuario actualizado correctamente.");
-        }
-        else
-        {
-            Console.WriteLine("No se encontró ningún usuario con ese ID.");
-        }
-    }
-    else
-    {
-        Console.WriteLine("ID inválido.");
-    }
+    libroRepository.Agregar(nuevoLibro);
+    Console.WriteLine("Libro agregado exitosamente.");
     PresioneParaContinuar();
 }
 
-void BajaUsuario()
+void VisualizarLibros()
 {
-    MostrarListaUsuarios(usuarioRepository);
-    Console.Write("Ingrese el ID del usuario a eliminar: ");
-
-    if (int.TryParse(Console.ReadLine(), out int id))
-    {
-        usuarioRepository.Eliminar(id);
-        Console.WriteLine("Proceso de eliminación finalizado.");
-    }
-    else
-    {
-        Console.WriteLine("ID inválido.");
-    }
+    MostrarListaLibros(libroRepository);
     PresioneParaContinuar();
 }
 
-void VisualizarUsuarios()
+void MostrarListaLibros(IGenericRepository<Libro> repository)
 {
-    MostrarListaUsuarios(usuarioRepository);
-    PresioneParaContinuar();
-}
+    Console.WriteLine("--- LISTADO ACTUAL DE LIBROS EN BASE DE DATOS ---");
+    var libros = repository.ObtenerTodosCon("Autor");
 
-void MostrarListaUsuarios(IGenericRepository<Usuario> repository)
-{
-    Console.WriteLine("--- LISTADO ACTUAL EN BASE DE DATOS ---");
-    var usuarios = repository.ObtenerTodos();
 
-    if (!usuarios.Any())
+    if (!libros.Any())
     {
         Console.WriteLine("[La tabla está vacía]");
     }
     else
     {
-        foreach (var u in usuarios)
+        foreach (var l in libros)
         {
-            Console.WriteLine($"ID: {u.Id} | Nombre: {u.Name} {u.LastName}");
+            Console.WriteLine($"ID: {l.Id} | Año: {l.Anio} | Título: {l.Titulo} | Autor: {l.Autor.Nombre}");
         }
     }
     Console.WriteLine("---------------------------------------");
     Console.WriteLine();
+}
+void AltaCategoria()
+{
+    Console.Write("Ingrese el nombre de la categoria: ");
+    string Nombre = Console.ReadLine();
+
+    var nuevaCategoria = new Categoria
+    {
+        Nombre = Nombre
+    };
+
+
+    categoriaRepository.Agregar(nuevaCategoria);
+    Console.WriteLine("Categoria agregada exitosamente.");
+    PresioneParaContinuar();
+}
+void VisualizarAutores()
+{
+    MostrarListaAutores(autorRepository);
+    PresioneParaContinuar();
+}
+void MostrarListaAutores(IGenericRepository<Autor> repository)
+{
+    Console.WriteLine("--- LISTADO ACTUAL DE AUTORES EN BASE DE DATOS ---");
+    var autores = repository.ObtenerTodos();
+
+    if (!autores.Any())
+    {
+        Console.WriteLine("[La tabla está vacía]");
+    }
+    else
+    {
+        foreach (var a in autores)
+        {
+            Console.WriteLine($"ID: {a.AutorId} | Nombre: {a.Nombre}");
+        }
+    }
+    Console.WriteLine("---------------------------------------");
+    Console.WriteLine();
+}
+
+void VisualizarCategoria()
+{
+    MostrarListaCategorias(categoriaRepository);
+    PresioneParaContinuar();
+}
+void MostrarListaCategorias(IGenericRepository<Categoria> repository)
+{
+    Console.WriteLine("--- LISTADO ACTUAL DE CATEGORIAS EN BASE DE DATOS ---");
+    var categorias = repository.ObtenerTodos();
+
+    if (!categorias.Any())
+    {
+        Console.WriteLine("[La tabla está vacía]");
+    }
+    else
+    {
+        foreach (var c in categorias)
+        {
+            Console.WriteLine($"ID: {c.Id} | Nombre: {c.Nombre}");
+        }
+    }
+    Console.WriteLine("---------------------------------------");
+    Console.WriteLine();
+}
+void ModificarLibro()
+{
+    Console.Write("Ingrese el ID del libro a modificar: ");
+    int libroId = int.Parse(Console.ReadLine());
+    var libroExistente = libroRepository.ObtenerPorId(libroId);
+    if (libroExistente == null)
+
+    {
+        Console.WriteLine("No se encontró un libro con ese ID.");
+        PresioneParaContinuar();
+        return;
+    }
+
+    Console.Write("Ingrese el nuevo título del libro: ");
+    string nuevoTitulo = Console.ReadLine();
+
+    Console.Write("Ingrese el nuevo año del libro: ");
+    int nuevoAnio = int.Parse(Console.ReadLine());
+
+    Console.Write("Ingrese el nuevo ID del autor: ");
+    int nuevoAutorId = int.Parse(Console.ReadLine());
+
+    Console.Write("Ingrese el nuevo ID de la categoría: ");
+    int nuevaCategoriaId = int.Parse(Console.ReadLine());
+
+    libroExistente.Titulo = nuevoTitulo;
+    libroExistente.Anio = nuevoAnio;
+    libroExistente.AutorId = nuevoAutorId;
+    libroExistente.CategoriaId = nuevaCategoriaId;
+    libroRepository.Modificar(libroExistente);
+
+    Console.WriteLine("Libro modificado exitosamente.");
+    PresioneParaContinuar();
+}
+
+void ModificarAutor()
+{
+    Console.Write("Ingrese el ID del autor a modificar: ");
+    int autorId = int.Parse(Console.ReadLine());
+
+    var autorExistente = autorRepository.ObtenerPorId(autorId);
+    if (autorExistente == null)
+
+    {
+        Console.WriteLine("No se encontró un autor con ese ID.");
+        PresioneParaContinuar();
+        return;
+    }
+    Console.Write("Ingrese el nuevo nombre del autor: ");
+    string nuevoNombre = Console.ReadLine();
+
+    autorExistente.Nombre = nuevoNombre;
+    autorRepository.Modificar(autorExistente);
+
+    Console.WriteLine("Autor modificado exitosamente.");
+    PresioneParaContinuar();
+}
+void EliminarLibro()
+{
+    Console.Write("Ingrese el ID del libro a cambiar el estado: ");
+    int libroId = int.Parse(Console.ReadLine());
+    var libroExistente = libroRepository.ObtenerPorId(libroId);
+
+    if (libroExistente == null)
+    {
+        Console.WriteLine("No se encontró un libro con ese ID.");
+        PresioneParaContinuar();
+        return;
+    }
+
+    libroExistente.Activo = false;
+
+    libroRepository.Modificar(libroExistente);
+
+    Console.WriteLine("Libro eliminado exitosamente.");
+    PresioneParaContinuar();
 }
 
 void PresioneParaContinuar()

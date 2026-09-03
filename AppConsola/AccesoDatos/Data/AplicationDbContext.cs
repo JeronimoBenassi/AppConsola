@@ -5,7 +5,9 @@ namespace AccesoDatos.Data
 {
     public class AplicationDbContext : DbContext
     {
-        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Autor> Autor { get; set; }
+        public DbSet<Libro> Libro { get; set; }
+        public DbSet<Categoria> Categoria { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

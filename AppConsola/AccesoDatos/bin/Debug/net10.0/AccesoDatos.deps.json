@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "AccesoDatos/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.11",
           "Microsoft.EntityFrameworkCore.Sqlite": "10.0.11"
         },
         "runtime": {

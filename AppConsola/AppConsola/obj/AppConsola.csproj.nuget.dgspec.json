@@ -1,25 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AppConsola\\AppConsola.csproj": {}
+    "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AppConsola\\AppConsola.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AccesoDatos\\AccesoDatos.csproj": {
+    "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AccesoDatos\\AccesoDatos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AccesoDatos\\AccesoDatos.csproj",
+        "projectUniqueName": "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AccesoDatos\\AccesoDatos.csproj",
         "projectName": "AccesoDatos",
-        "projectPath": "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AccesoDatos\\AccesoDatos.csproj",
-        "packagesPath": "C:\\Users\\Juani\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AccesoDatos\\obj\\",
+        "projectPath": "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AccesoDatos\\AccesoDatos.csproj",
+        "packagesPath": "C:\\Users\\jeronimo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AccesoDatos\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Juani\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\jeronimo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -53,6 +47,16 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.11, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -347,22 +351,17 @@
         }
       }
     },
-    "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AppConsola\\AppConsola.csproj": {
+    "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AppConsola\\AppConsola.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AppConsola\\AppConsola.csproj",
+        "projectUniqueName": "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AppConsola\\AppConsola.csproj",
         "projectName": "AppConsola",
-        "projectPath": "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AppConsola\\AppConsola.csproj",
-        "packagesPath": "C:\\Users\\Juani\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AppConsola\\obj\\",
+        "projectPath": "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AppConsola\\AppConsola.csproj",
+        "packagesPath": "C:\\Users\\jeronimo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AppConsola\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Juani\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\jeronimo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -370,7 +369,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -378,8 +376,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AccesoDatos\\AccesoDatos.csproj": {
-                "projectPath": "C:\\Users\\Juani\\Desktop\\2026\\EF\\AppConsola\\AccesoDatos\\AccesoDatos.csproj"
+              "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AccesoDatos\\AccesoDatos.csproj": {
+                "projectPath": "C:\\Users\\jeronimo\\source\\repos\\Ejercicio\\AppConsola\\AccesoDatos\\AccesoDatos.csproj"
               }
             }
           }
@@ -400,6 +398,28 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.11, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -12,10 +12,19 @@ namespace AccesoDatos.Repositories
             _context = new AplicationDbContext();
         }
 
-        // 1. LECTURA (SELECT *)
+        // 1. LECTURA SIMPLE (SELECT *)
         public List<T> ObtenerTodos()
         {
             return _context.Set<T>().AsNoTracking().ToList();
+        }
+
+        // 2. LECTURA CON TABLA DE AUTOR
+        public List<T> ObtenerTodosCon(string propiedadrelacionada)
+        {
+            return _context.Set<T>()
+                           .Include(propiedadrelacionada)
+                           .AsNoTracking()
+                           .ToList();
         }
 
         // 2. ALTA (INSERT), es decir, se agrega un registro en la tabla de la base de datos.
@@ -48,6 +57,8 @@ namespace AccesoDatos.Repositories
         {
             // Busca directamente en el conjunto de datos del tipo T correspondientes
             return _context.Set<T>().Find(id);
+
+
         }
 
     }
